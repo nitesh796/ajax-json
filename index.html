@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>AJAX Assignment1</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <div class="info">
+      <table border="1" cellpadding="10">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="demo">
+
+        </tbody>
+      </table>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        sendRequest();
+
+        function sendRequest(){
+          $.ajax({
+            url: "data.json",
+            dataType: 'json',
+            success: function(result){
+                $('#demo').children().remove();
+                $.each(result,function(i, data){
+                  json_data = "<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.email + "</td><td>" + data.message + "</td><td>" + data.date + "</td>";
+                  $("#demo").append(json_data);
+                });
+
+                setTimeout(function(){
+                    sendRequest();
+                }, 2000);
+            }
+          });
+        }
+
+      });
+    </script>
+  </body>
+</html>
