@@ -22,6 +22,9 @@
 
         </tbody>
       </table>
+      <div id="pagination">
+
+      </div>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -35,15 +38,35 @@
             url: "data.json",
             dataType: 'json',
             success: function(result){
-                $('#demo').children().remove();
-                $.each(result,function(i, data){
-                  json_data = "<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.email + "</td><td>" + data.message + "</td><td>" + data.date + "</td>";
-                  $("#demo").append(json_data);
-                });
+              var pgNum;
+              if (result.length % 5 == 0) {
+                pgNum = result.length / 5;
+              } else {
+                pgNum = (result.length / 5) + 1;
+              }
+              for(var j = 1; j <= parseInt(pgNum); j++){
+                  pgData = "<a href='javascript:void(0);' class='page-link' id='" + j + "'>" + j + "</a>&nbsp;&nbsp;";
+                  $("#pagination").append(pgData);
+              }
 
-                setTimeout(function(){
-                    sendRequest();
-                }, 2000);
+              jQuery(function(){
+                jQuery('a#1').click();
+              });
+
+              $("a.page-link").click(function(){
+                $("#demo").children().remove();
+                var id, iter;
+                id = $(this).prop('id');
+                if (id == 1) {
+                  iter = 0;
+                } else {
+                  iter = 5 * (id - 1);
+                }
+                for(var i = iter; i < 5 * id; i++){
+                  json_data = "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td>" + result[i].email + "</td><td>" + result[i].message + "</td><td>" + result[i].date + "</td>";
+                  $("#demo").append(json_data);
+                }
+              });
             }
           });
         }
