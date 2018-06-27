@@ -8,6 +8,9 @@
   <body>
 
     <div class="info">
+      <form class="" action="index.html" method="post">
+        <input id="search" type="text" name="" value="">
+      </form>
       <table border="1" cellpadding="10">
         <thead>
           <tr>
@@ -25,53 +28,12 @@
       <div id="pagination">
 
       </div>
+      <div id="pagination-filter">
+
+      </div>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-
-        sendRequest();
-
-        function sendRequest(){
-          $.ajax({
-            url: "data.json",
-            dataType: 'json',
-            success: function(result){
-              var pgNum;
-              if (result.length % 5 == 0) {
-                pgNum = result.length / 5;
-              } else {
-                pgNum = (result.length / 5) + 1;
-              }
-              for(var j = 1; j <= parseInt(pgNum); j++){
-                  pgData = "<a href='javascript:void(0);' class='page-link' id='" + j + "'>" + j + "</a>&nbsp;&nbsp;";
-                  $("#pagination").append(pgData);
-              }
-
-              jQuery(function(){
-                jQuery('a#1').click();
-              });
-
-              $("a.page-link").click(function(){
-                $("#demo").children().remove();
-                var id, iter;
-                id = $(this).prop('id');
-                if (id == 1) {
-                  iter = 0;
-                } else {
-                  iter = 5 * (id - 1);
-                }
-                for(var i = iter; i < 5 * id; i++){
-                  json_data = "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td>" + result[i].email + "</td><td>" + result[i].message + "</td><td>" + result[i].date + "</td>";
-                  $("#demo").append(json_data);
-                }
-              });
-            }
-          });
-        }
-
-      });
-    </script>
+    <script src="js/custom.js"></script>
   </body>
 </html>

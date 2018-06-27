@@ -6,6 +6,13 @@ body {
   width: 800px;
   margin: 50px auto;
 }
+.info form {
+  margin-bottom: 15px;
+  text-align: right;
+}
+.info form input {
+  padding: 7px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -17,11 +24,14 @@ table thead tr th {
 table td,th {
   text-align: center;
 }
-#pagination {
+#pagination,
+#pagination-filter {
   display: inline-block;
   margin-top: 20px;
 }
-.page-link {
+.page-link,
+.page-link-filter {
   padding: 10px;
   border: 1px solid #ddd;
+  margin-right: 10px;
 }
