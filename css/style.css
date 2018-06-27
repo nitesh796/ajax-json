@@ -17,3 +17,11 @@ table thead tr th {
 table td,th {
   text-align: center;
 }
+#pagination {
+  display: inline-block;
+  margin-top: 20px;
+}
+.page-link {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
