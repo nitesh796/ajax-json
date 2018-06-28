@@ -7,11 +7,16 @@ body {
   margin: 50px auto;
 }
 .info form {
+  display: flex;
   margin-bottom: 15px;
-  text-align: right;
 }
 .info form input {
   padding: 7px;
+  margin-left: auto;
+}
+.info form select {
+  margin: auto 0;
+  padding: 3px;
 }
 table {
   width: 100%;
