@@ -7,7 +7,7 @@ $(document).ready(function(){
       url: "data.json",
       dataType: 'json',
       success: function(result){
-        var pgNum, pgData, json_data, search;
+        var pgNum, pgData, json_data, search, dataArray = [];
 
         search = $("#search").val();
         if (search != "") {
@@ -18,10 +18,18 @@ $(document).ready(function(){
           });
         }
 
-        if (result.length % 5 == 0) {
-          pgNum = result.length / 5;
+        // fetch and display data with pagination
+        for (var x = 0; x < result.length; x++) {
+          var dataItem = {};
+          json_data = "<tr><td>" + result[x].id + "</td><td>" + result[x].name + "</td><td>" + result[x].email + "</td><td>" + result[x].message + "</td><td>" + result[x].date + "</td></tr>";
+          dataItem = json_data;
+          dataArray.push(dataItem);
+        }
+
+        if (dataArray.length % 5 == 0) {
+          pgNum = dataArray.length / 5;
         } else {
-          pgNum = (result.length / 5) + 1;
+          pgNum = (dataArray.length / 5) + 1;
         }
         for(var j = 1; j <= parseInt(pgNum); j++){
             pgData = "<a href='javascript:void(0);' class='page-link' id='" + j + "'>" + j + "</a>";
@@ -38,11 +46,13 @@ $(document).ready(function(){
             iter = 5 * (id - 1);
           }
           for(var i = iter; i < 5 * id; i++){
-            json_data = "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td>" + result[i].email + "</td><td>" + result[i].message + "</td><td>" + result[i].date + "</td></tr>";
+            json_data = dataArray[i];
             $("#demo").append(json_data);
           }
         });
+        // fetch and display data with pagination
 
+        // search filter
         $("#search").keyup(function(){
           var searchString = $(this).val();
           var filterDataArray = [];
@@ -65,6 +75,9 @@ $(document).ready(function(){
                 json_data = "<tr><td>" + result[k].id + "</td><td>" + name + "</td><td>" + email + "</td><td>" + message + "</td><td>" + result[k].date + "</td></tr>";
                 filterDataRow = json_data;
                 filterDataArray.push(filterDataRow);
+              } else {
+                var error = "<tr><td colspan='5'>No Records Found.</td></tr>";
+                $("#demo").html(error);
               }
             }
           }
@@ -107,9 +120,8 @@ $(document).ready(function(){
               $("#pagination").show();
               $("#pagination-filter").hide();
           }
-
         });
-
+        // search filter
       }
     });
   }
